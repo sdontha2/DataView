@@ -1,0 +1,108 @@
+.navbar .nav-link {
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-left: 1rem !important;
+    padding-right: 1 rem !important;
+}
+.navbar .nav-item.active{
+    border-left: #444444 3px solid;
+
+
+}
+.carousel-item {
+    height: 900px;
+
+}
+.carousel-image-1 {
+    background: url('../img/image1.jpg');
+    background-size: cover;
+
+}
+.carousel-image-2 {
+    background: url('../img/image2.jpg');
+    background-size: cover;
+
+}
+.carousel-image-3 {
+    background: url('../img/image3.jpg');
+    background-size: cover;
+
+}
+#home-heading {
+    position: relative;
+    min-height: 200px;
+}
+#myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+
+  #myUL {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #myUL li a {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 18px; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: block; /* Make it into a block element to fill the whole list */
+  }
+
+  #myUL li a:hover:not(.header) {
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+}
+.dropdown-menu .dropdown-toggle::after {
+    vertical-align: middle;
+    border-left: 4px solid;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+}
+.dropdown-menu .dropdown .dropdown-menu {
+    left: 100%;
+    top: 0%;
+    margin:0 20px;
+    border-width: 0;
+}
+
+.dropdown-menu > li a:hover,
+.dropdown-menu > li.show {
+	background: #007bff;
+	color: white;
+}
+.dropdown-menu > li.show > a{
+	color: white;
+}
+
+@media (min-width: 768px) {
+    .dropdown-menu .dropdown .dropdown-menu {
+        margin:0;
+        border-width: 1px;
+    }
+    p {
+text-indent: 3em;
+} 
+
+    footer {
+           position: center;
+
+           border-top-width: 5px;
+           border-top-style: solid;
+           border-top-color: ##000000;
+        }

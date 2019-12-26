@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+		<link rel='stylesheet' href='stylesheets/style.css' />
+		<link rel='stylesheet' href='stylesheets/bootstrap.min.css' />
+		<link rel='stylesheet' href='stylesheets/font-awesome.min.css' />
+
+		<!-- Load c3.css -->
+		<link href="stylesheets/c3.css" rel="stylesheet" type="text/css">
+
+		<!-- Load d3.js and c3.js -->
+		<script src="javascripts/d3.v3.min.js" charset="utf-8"></script>
+		<script src="javascripts/c3.min.js"></script>
+		<link rel="shortcut icon" href="favicon.ico">
+
+
+
+
+		<!-- Load papaparse.js -->
+		<script src="javascripts/papaparse.min.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"crossorigin="anonymous"/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+		<link rel="stylesheet" href= "css/style.css"/>
+
+		<link rel="stylesheet" href="chosen_v1.8.7/docsupport/style.css">
+		<link rel="stylesheet" href="chosen_v1.8.7/docsupport/prism.css">
+		<link rel="stylesheet" href="chosen_v1.8.7/chosen.css">
+
+		<title>DataView</title>
+  	</head>
+  	<body>
+
+		<div class="container mt-5">
+
+
+		</div>
+
+		<div class="container mt-5 mb-5">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+				<div class="container" style="position:relative">
+						<img src="favicon.ico" width="50px" height="50px" style="position:relative; bottom:8px"/>
+						<a href="index.html" class="navbar-brand" style="
+						font-size:xx-large">DataView</a>
+							<style>.onoffswitch {
+								position: relative; width: 90px;
+								-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+							}
+							.onoffswitch-checkbox {
+								display: none;
+							}
+							.onoffswitch-label {
+								display: block; overflow: hidden; cursor: pointer;
+								border: 2px solid #999999; border-radius: 20px;
+							}
+							.onoffswitch-inner {
+								display: block; width: 200%; margin-left: -100%;
+								transition: margin 0.3s ease-in 0s;
+							}
+							.onoffswitch-inner:before, .onoffswitch-inner:after {
+								display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+								font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+								box-sizing: border-box;
+							}
+							.onoffswitch-inner:before {
+								content: "BAR";
+								padding-left: 10px;
+								background-color: #34A7C1; color: #FFFFFF;
+							}
+							.onoffswitch-inner:after {
+								content: "LINE";
+								padding-right: 10px;
+								background-color: #EEEEEE; color: #999999;
+								text-align: right;
+							}
+							.onoffswitch-switch {
+								display: block; width: 18px; margin: 6px;
+								background: #FFFFFF;
+								position: absolute; top: 0; bottom: 0;
+								right: 56px;
+								border: 2px solid #999999; border-radius: 20px;
+								transition: all 0.3s ease-in 0s;
+							}
+							.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+								margin-left: 0;
+							}
+							.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+								right: 0px;
+							}
+							  </style>
+						<div class="onoffswitch">
+								<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked style="position:relative; bottom:8px">
+								<label class="onoffswitch-label" for="myonoffswitch" style="position:relative; bottom:8px">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+								</label>
+							</div>
+						<li style="line-height: 17px">
+						  <p style="color:white;padding-left:210px;font-size:large;text-align:right">Segment Filter:</p>
+						  <p style="color:white;padding-left:210px;font-size:large;text-align:right">Manufacturer Filter:</p>
+						  <p style="color:white;padding-left:210px;font-size:large; text-align:right"> Brand Filter:</p>
+						  <p style="color:white;padding-left:210px;font-size:large; text-align:right">Model Filter:</p>
+						</li>
+
+						<li class="nav-item dropdown" style="bottom:8px">
+						 <div>
+						  <select onchange="segmentsChange(value)" id = "segmentFilter" data-placeholder="Choose a Segment..." class="chosen-select" multiple tabindex="4">
+							<option class = "segment" value="Midsize Car">Midsize Car</option>
+							<option class = "segment" value="Large Car">Large Car</option>
+							<option class = "segment" value="Small Luxury SUV">Small Luxury SUV</option>
+							<option class = "segment" value="Midsize SUV">Midsize SUV</option>
+							<option class = "segment" value="Midsize Luxury Car">Midsize Luxury Car</option>
+							<option class = "segment" value="Small Car">Small Car</option>
+							<option class = "segment" value="Small Luxury Car">Small Luxury Car</option>
+							<option class = "segment" value="Large Luxury Car">Large Luxury Car</option>
+							<option class = "segment" value="Large SUV">Large SUV</option>
+							<option class = "segment" value="Midsize Luxury SUV">Midsize Luxury SUV</option>
+
+							<!-- <script src="javascripts/create-graph.js"></script> -->
+						  </select>
+						</div>
+						<div>
+
+						  <select onchange="manufacturersChange(value)" data-placeholder="Choose a Manufacturer..." class="chosen-select" multiple tabindex="4">
+							<option class = "manufacturer" value="General Motors">General Motors</option>
+							<option class = "manufacturer" value="FCA">FCA</option>
+							<option class = "manufacturer" value="Ford Motors">Ford Motors</option>
+							<option class = "manufacturer" value="Honda">Honda</option>
+							<option class = "manufacturer" value="Hyundai-Kia">Hyundai-Kia</option>
+							<option class = "manufacturer" value="Mazda">Mazda</option>
+							<option class = "manufacturer" value="Nissan">Nissan</option>
+							<option class = "manufacturer" value="Subaru">Subaru</option>
+							<option class = "manufacturer" value="Toyota">Toyota</option>
+							<option class = "manufacturer" value="Volkswagen">Volkswagen</option>
+							<option class = "manufacturer" value="Volvo">Volvo</option>
+							<option class = "manufacturer" value="BMW">BMW</option>
+							<option class = "manufacturer" value="Jaguar Land Rover">Jaguar Land Rover</option>
+							<option class = "manufacturer" value="Daimler AG">Daimler AG</option>
+							<option class = "manufacturer" value="Tesla">Tesla</option>
+							<option class = "manufacturer" value="Porsche">Porsche</option>
+
+						  </select>
+						</div>
+						<div>
+						  <select onchange="brandsChange(value)" data-placeholder="Choose a Brand..." class="chosen-select" multiple tabindex="4">
+							<option class = "brand" value="Buick">Buick</option>
+							<option class = "brand" value="Chevrolet">Chevrolet</option>
+							<option class = "brand" value="Chrysler">Chrysler</option>
+							<option class = "brand" value="Dodge">Dodge</option>
+							<option class = "brand" value="Ford">Ford</option>
+							<option class = "brand" value="Honda">Honda</option>
+							<option class = "brand" value="Kia">Kia</option>
+
+							<option class = "brand" value="Mazda">Mazda</option>
+							<option class = "brand" value="Nissan">Nissan</option>
+							<option class = "brand" value="Subaru">Subaru</option>
+							<option class = "brand" value="Toyota">Toyota</option>
+							<option class = "brand" value="Volkswagen">Volkswagen</option>
+							<option class = "brand" value="Alfa Romeo">Alfa Romeo</option>
+							<option class = "brand" value="Audi">Audi</option>
+							<option class = "brand" value="BMW">BMW</option>
+							<option class = "brand" value="Cadillac">Cadillac</option>
+							<option class = "brand" value="Infiniti">Infiniti</option>
+							<option class = "brand" value="Jaguar">Jaguar</option>
+							<option class = "brand" value="Lexus">Lexus</option>
+							<option class = "brand" value="Lincoln">Lincoln</option>
+							<option class = "brand" value="Volvo">Volvo</option>
+							<option class = "brand" value="GMC">GMC</option>
+							<option class = "brand" value="Hyundai">Hyundai</option>
+							<option class = "brand" value="Jeep">Jeep</option>
+							<option class = "brand" value="Jeep">Jeep</option>
+							<option class = "brand" value="Mitsubishi">Mitsubishi</option>
+							<option class = "brand" value="Acura">Acura</option>
+							<option class = "brand" value="Genesis">Genesis</option>
+							<option class = "brand" value="Tesla">Tesla</option>
+							<option class = "brand" value="Fiat">Fiat</option>
+							<option class = "brand" value="MINI">Mini</option>
+							<option class = "brand" value="Smart">Smart</option>
+							<option class = "brand" value="Jaguar">Jaguar</option>
+							<option class = "brand" value="Porsche">Porsche</option>
+
+						  </select>
+						</div>
+						<div>
+						  <select onchange="modelsChange(value)" data-placeholder="Choose a Model..." class="chosen-select" multiple tabindex="4">
+							<option class = "model" value="Buick Regal">Buick Regal</option>
+							<option class = "model" value="Chevrolet Bolt">Chevrolet Bolt</option>
+							<option class = "model" value="Chevrolet Malibu">Chevrolet Malibu</option>
+							<option class = "model" value="Chevrolet Volt">Chevrolet Volt</option>
+							<option class = "model" value="Chrysler 200">Chrysler 200</option>
+							<option class = "model" value="Dodge Avenger">Dodge Avenger</option>
+							<option class = "model" value="Ford C-Max">Ford C-Max</option>
+							<option class = "model" value="Ford Fusion">Ford Fusion</option>
+							<option class = "model" value="Honda Accord">Honda Accord</option>
+							<option class = "model" value="Honda Clarity FCV">Honda Clarity FCV</option>
+							<option class = "model" value="Honda Insight">Honda Insight</option>
+							<option class = "model" value="Hyundai Ioniq">Hyundai Ioniq</option>
+							<option class = "model" value="Hyundai Sonata">Hyudai Sonata</option>
+							<option class = "model" value="Kia Optima">Kia Optima</option>
+							<option class = "model" value="Hyundai Stinger">Kia Stinger</option>
+							<option class = "model" value="Mazda 6">Mazda 6</option>
+							<option class = "model" value="Nissan Altima">Nissan Altima</option>
+							<option class = "model" value="Nissan Leaf">Nissan Leaf</option>
+							<option class = "model" value="Subaru Legacy">Subaru Legacy</option>
+							<option class = "model" value="Toyota Camry">Toyota Camry</option>
+							<option class = "model" value="Toyota Mirai">Toyota Mirai</option>
+							<option class = "model" value="Toyota Prius Family">Toyota Prius Family</option>
+							<option class = "model" value="Volkswagen Arteon">Volkswagen Arteon</option>
+							<option class = "model" value="Volkswagen CC">Volkswagen CC</option>
+							<option class = "model" value="Volkswagen Passat">Volkswagen Passat</option>
+							<option class = "model" value="Buick LaCrosse">Buick LaCrosse</option>
+							<option class = "model" value="Chevrolet Impala">Chevrolet Impala</option>
+							<option class = "model" value="Chrysler 300">Chrysler 300</option>
+							<option class = "model" value="Dodge Charger">Dodge Charger</option>
+							<option class = "model" value="Ford Taurus">Ford Taurus</option>
+							<option class = "model" value="Kia Cadenza">Kia Cadenza</option>
+							<option class = "model" value="Kia K900">Kia K900</option>
+							<option class = "model" value="Nissan Maxima">Nissan Maxima</option>
+							<option class = "model" value="Toyota Avalon">Toyota Avalon</option>
+							<option class = "model" value="Alfa Romeo Stelvio">Alfa Romeo Stelvio</option>
+							<option class = "model" value="Audi eTron">Audi eTron</option>
+							<option class = "model" value="Audi Q3">Audi Q3</option>
+							<option class = "model" value="Audi Q5">Audi Q5</option>
+							<option class = "model" value="BMW X1">BMW X1</option>
+							<option class = "model" value="BMW X2">BMW X2</option>
+							<option class = "model" value="Cadillac XT4">Cadillac XT4</option>
+							<option class = "model" value="Infiniti QX30">Infiniti QX30</option>
+							<option class = "model" value="Infiniti QX50">Infiniti QX50</option>
+							<option class = "model" value="Jaguar E-Pace">Jaguar E-Pace</option>
+							<option class = "model" value="Land Rover Discovery Sport">Land Rover Discovery Sport</option>
+							<option class = "model" value="Land Rover Range Rover Evoque">Land Rover Range Rover Evoque</option>
+							<option class = "model" value="Lexus NX">Lexus NX</option>
+							<option class = "model" value="Lexus UX">Lexus UX</option>
+							<option class = "model" value="Lincoln MKC">Lincoln MKC</option>
+							<option class = "model" value="Mercedes-Benz GLA-Class">Mercedes-Benz GLA-Class</option>
+							<option class = "model" value="Mercedes-Benz GLC-CLass">Mercedes-Benz GLC-Class</option>
+							<option class = "model" value="Volvo XC-40">Volvo XC-40</option>
+							<option class = "model" value="Volvo XC-60">Volvo XC-60</option>
+							<option class = "model" value="Buick Enclave">Buick Enclave</option>
+							<option class = "model" value="Chevrolet Blazer">Chevrolet Blazer</option>
+							<option class = "model" value="Chevrolet Traverse">Chevrolet Traverse</option>
+							<option class = "model" value="Dodge Durango">Dodge Durango</option>
+							<option class = "model" value="Ford Edge">Ford Edge</option>
+							<option class = "model" value="Ford Explorer">Ford Explorer</option>
+							<option class = "model" value="Ford Flex">Ford Flex</option>
+							<option class = "model" value="GMC Acadia">GMC Acadia</option>
+							<option class = "model" value="Honda Passport">Honda Passport</option>
+							<option class = "model" value="Honda Pilot">Honda Pilot</option>
+							<option class = "model" value="Hyundai Palisade">Hyundai Palisade</option>
+							<option class = "model" value="Hyundai Sante Fe">Hyundai Sante Fe</option>
+							<option class = "model" value="Jeep Grand Cherokee">Jeep Grand Cherokee</option>
+							<option class = "model" value="Jeep Wrangler">Jeep Wrangler</option>
+							<option class = "model" value="Kia Sorento">Kia Sorento</option>
+							<option class = "model" value="Kia Telluride">Kia Telluride</option>
+							<option class = "model" value="Mazda CX-9">Mazda CX-9</option>
+							<option class = "model" value="Mitsubishi Montero Sport">Mitsubishi Montero Sport</option>
+							<option class = "model" value="Nissan Murano">Nissan Murano</option>
+							<option class = "model" value="Nissan Pathfinder">Nissan Pathfinder</option>
+							<option class = "model" value="Subaru Ascent">Subaru Ascent</option>
+							<option class = "model" value="Subaru Outback">Subaru Outback</option>
+							<option class = "model" value="Toyota 4Runner">Toyota 4Runner</option>
+							<option class = "model" value="Toyota FJ Cruiser">Toyota FJ Cruiser</option>
+							<option class = "model" value="Toyota Highlander">Toyota Highlander</option>
+							<option class = "model" value="Volkswagen Atlas">Volkswagen Atlas</option>
+							<option class = "model" value="Volkswagen Touareg">Volkswagen Touareg</option>
+							<option class = "model" value="Acura RLX">Acura RLX</option>
+							<option class = "model" value="Audi A6">Audi A6</option>
+							<option class = "model" value="Audi A7">Audi A7</option>
+							<option class = "model" value="BMW 5-Series">BMW 5-Series</option>
+							<option class = "model" value="Cadillac CT6">Cadillac CT6</option>
+							<option class = "model" value="Cadillac CTS">Cadillac CTS</option>
+							<option class = "model" value="Cadillac XTS">Cadillac XTS</option>
+							<option class = "model" value="Genesis G80">Genesis G80</option>
+							<option class = "model" value="Infiniti Q70">Infiniti Q70</option>
+							<option class = "model" value="Jaguar XF">Jaguar XF</option>
+							<option class = "model" value="Lexus ES">Lexus ES</option>
+							<option class = "model" value="Lexus GS">Lexus GS</option>
+							<option class = "model" value="Lincoln Continental">Lincoln Continental</option>
+							<option class = "model" value="Lincoln MKZ">Lincoln MKZ</option>
+							<option class = "model" value="Mercedes-Benz E/ CLS-Class">Mercedes-Benz E/ CLS-Class</option>
+							<option class = "model" value="Tesla Model 3">Tesla Model 3</option>
+							<option class = "model" value="Volvo 90-Series">Volvo 90-Series</option>
+							<option class = "model" value="Buick Envision">Buick Envision</option>
+							<option class = "model" value="Chevrolet Equinox">Chevrolet Equinox</option>
+							<option class = "model" value="Chevrolet Trax">Chevrolet Trax</option>
+							<option class = "model" value="Dodge Journey">Dodge Journey</option>
+							<option class = "model" value="Fiat 500X">Fiat 500X</option>
+							<option class = "model" value="Ford EcoSport">Ford EcoSport</option>
+							<option class = "model" value="Ford Escape">Ford Escape</option>
+							<option class = "model" value="GMC Terrain">GMC Terrain</option>
+							<option class = "model" value="Honda CR-V">Honda CR-V</option>
+							<option class = "model" value="Honda HR-V">Honda HR-V</option>
+							<option class = "model" value="Hyundai Kona">Hyundai Kona</option>
+							<option class = "model" value="Hyundai Nexo">Hyundai Nexo</option>
+							<option class = "model" value="Hyundai Tucson">Hyundai Tucson</option>
+							<option class = "model" value="Hyundai Venue">Hyundai Venue</option>
+							<option class = "model" value="Jeep Cherokee">Jeep Cherokee</option>
+							<option class = "model" value="Jeep Compass">Jeep Compass</option>
+							<option class = "model" value="Jeep Patriot">Jeep Patriot</option>
+							<option class = "model" value="Jeep Renegade">Jeep Renegade</option>
+							<option class = "model" value="Kia Niro">Kia Niro</option>
+							<option class = "model" value="Kia Sportage">Kia Sportage</option>
+							<option class = "model" value="Maza CX-3">Mazda CX-3</option>
+							<option class = "model" value="Mazda CX-30">Mazda CX-30</option>
+							<option class = "model" value="Mazda CX-5">Mazda CX-5</option>
+							<option class = "model" value="Mini Countryman">Mini Countryman</option>
+							<option class = "model" value="Mitsubishi Eclipse Cross">Mitsubishi Eclipse Cross</option>
+							<option class = "model" value="Mitsubishi Outlander">Mitsubishi Outlander</option>
+							<option class = "model" value="Mitsubishi Outlander PHEV">Mitsubishi Outlander PHEV</option>
+							<option class = "model" value="Mitsubishi Outlander Sport">Mitsubishi Outlander Sport</option>
+							<option class = "model" value="Nissan Juke">Nissan Juke</option>
+							<option class = "model" value="Nissan Kicks">Nissan Kicks</option>
+							<option class = "model" value="Nissan Rogue">Nissan Rogue</option>
+							<option class = "model" value="Subaru CrossTreck">Subaru CrossTrek</option>
+							<option class = "model" value="Subaru Forester">Subaru Forester</option>
+							<option class = "model" value="Toyota C-HR">Toyota C-HR</option>
+							<option class = "model" value="Toyota RAV4">Toyota RAV4</option>
+							<option class = "model" value="Toyota Venza">Toyoto Venza</option>
+							<option class = "model" value="Volkswagen Tiguan">Volkswagen Tiguan</option>
+							<option class = "model" value="BMW X7">BMW X7</option>
+							<option class = "model" value="Cadillac Escalade">Cadillac Escalade</option>
+							<option class = "model" value="Infiniti QX80">Infiniti QX80</option>
+							<option class = "model" value="Land Rover Range Rover">Land Rover Range Rover</option>
+							<option class = "model" value="Lexus LX">Lexus LX</option>
+							<option class = "model" value="Lincoln Navigator">Lincoln Navigator</option>
+							<option class = "model" value="Mercedes-Benz G-Class">Mercedes-Benz G-Class</option>
+							<option class = "model" value="Mercedes-Benz GLS-Class">Mercedes-Benz GLS-Class</option>
+							<option class = "model" value="Toyota Land Cruiser">Toyota Land Cruiser</option>
+							<option class = "model" value="Chevrolet Cruze">Chevrolet Cruze</option>
+							<option class = "model" value="Chevrolet Sonic">Chevrolet Sonic</option>
+							<option class = "model" value="Chevrolet Spark">Chevrolet Spark</option>
+							<option class = "model" value="Dodge Dart">Dodge Dart</option>
+							<option class = "model" value="Fiat 500">Fiat 500</option>
+							<option class = "model" value="Fiat 500L">Fiat 500L</option>
+							<option class = "model" value="Ford Fiesta">Ford Fiesta</option>
+							<option class = "model" value="Ford Focus">Ford Focus</option>
+							<option class = "model" value="Honda Civic">Honda Civic</option>
+							<option class = "model" value="Honda CR-Z">Honda CR-Z</option>
+							<option class = "model" value="Honda Fit">Honda Fit</option>
+							<option class = "model" value="Hyundai Accent">Hyundai Accent</option>
+							<option class = "model" value="Hyundai Elantra">Hyundai Elantra</option>
+							<option class = "model" value="Hyundai Veloster">Hyundai Veloster</option>
+							<option class = "model" value="Kia Forte">Kia Forte</option>
+							<option class = "model" value="Kia Rio">Kia Rio</option>
+							<option class = "model" value="Kia Soul">Kia Soul</option>
+							<option class = "model" value="Mazda 3">Mazda 3</option>
+							<option class = "model" value="Mini Cooper">Mini Cooper</option>
+							<option class = "model" value="Mitsubishi Lancer">Mitsubishi Lancer</option>
+							<option class = "model" value="Mitsubishi Mirage">Mitsubishi Mirage</option>
+							<option class = "model" value="Nissan Sentra">Nissan Sentra</option>
+							<option class = "model" value="Nissan Versa">Nissan Versa</option>
+							<option class = "model" value="Smart ForTwo">Smart ForTwo</option>
+							<option class = "model" value="Subaru Impreza">Subaru Impreza</option>
+							<option class = "model" value="Toyota Corolla">Toyota Corolla</option>
+							<option class = "model" value="Toyota Yaris">Toyota Yaris</option>
+							<option class = "model" value="Volkswagen Beetle">Volkswagen Beetle</option>
+							<option class = "model" value="Volkswagen Jetta">Volkswagen Jetta</option>
+							<option class = "model" value="Volkswagen Golf">Volkswagen Golf</option>
+							<option class = "model" value="Acura ILX">Acura ILX</option>
+							<option class = "model" value="Acura TLX">Acura TLX</option>
+							<option class = "model" value="Alfa Romeo Giulia">Alfa Romeo Giulia</option>
+							<option class = "model" value="Audi A3">Audi A3</option>
+							<option class = "model" value="Audi A4">Audi A4</option>
+							<option class = "model" value="Audi A5">Audi A5</option>
+							<option class = "model" value="BMW 2-Series">BMW 2-Series</option>
+							<option class = "model" value="BNW 3-Series">BMW 3-Series</option>
+							<option class = "model" value="BNW 4-Series">BMW 4-Series</option>
+							<option class = "model" value="BMW i3">BMW i3</option>
+							<option class = "model" value="Cadillac ATS">Cadillac ATS</option>
+							<option class = "model" value="Genesis G70">Genesis G70</option>
+							<option class = "model" value="Infiniti Q50">Infiniti Q50</option>
+							<option class = "model" value="Infiniti Q60">Infiniti Q60</option>
+							<option class = "model" value="Jaguar XE">Jaguar XE</option>
+							<option class = "model" value="Lexus IS">Lexus IS</option>
+							<option class = "model" value="Lexus RC">Lexus RC</option>
+							<option class = "model" value="Mercedes-Benz A-Class">Mercedes-Benz A-Class</option>
+							<option class = "model" value="Mercedes-Benz B-Class">Mercedes-Benz B-Class</option>
+							<option class = "model" value="Mercedes-Benz C-Class">Mercedes-Benz C-Class</option>
+							<option class = "model" value="Mercedes-Benz CLA-CLass">Mercedes-Benz CLA-Class</option>
+							<option class = "model" value="Volvo 60-Series">Volvo 60-Series</option>
+							<option class = "model" value="Audi A8">Audi A8</option>
+							<option class = "model" value="BMW 6-Series">BMW 6-Series</option>
+							<option class = "model" value="BMW 7-Series">BMW 7-Series</option>
+							<option class = "model" value="Genesis G90">G90</option>
+							<option class = "model" value="Jaguar XJ">Jaguar XJ</option>
+							<option class = "model" value="Lexus LS">Lexus LS</option>
+							<option class = "model" value="Mercedes-Benz S-Class">Mercedes-Benz S-Class</option>
+							<option class = "model" value="Porsche Panamera">Porsche Panamera</option>
+							<option class = "model" value="Tesla Model S">Tesla Model S</option>
+							<option class = "model" value="Chevrolet Suburban">Chevrolet Suburban</option>
+							<option class = "model" value="Chevrolet Tahoe">Chevrolet Tahoe</option>
+							<option class = "model" value="Ford Expedition">Ford Expedition</option>
+							<option class = "model" value="GMC Yukon">GMC Yukon</option>
+							<option class = "model" value="Nissan Armada">Nissan Armada</option>
+							<option class = "model" value="Toyota Sequoia">Toyota Sequoia</option>
+							<option class = "model" value="Acura MDX">Acura MDX</option>
+							<option class = "model" value="Audi Q7">Audi Q7</option>
+							<option class = "model" value="Audi Q8">Audi Q8</option>
+							<option class = "model" value="BMW X5">BMW X5</option>
+							<option class = "model" value="BMW X6">BMW X6</option>
+							<option class = "model" value="Cadillac XT5">Cadillac XT5</option>
+							<option class = "model" value="Cadillac XT6">Cadillac XT6</option>
+							<option class = "model" value="Infiniti QX60">Infiniti QX60</option>
+							<option class = "model" value="Infiniti QX70">Infiniti QX70</option>
+							<option class = "model" value="Jaguar F-Pace">Jaguar F-Pace</option>
+							<option class = "model" value="Land Rover Discovery/ LR4">Land Rover Discovery/ LR4</option>
+							<option class = "model" value="Land Rover Range Rover Sport">Land Rover Range Rover Sport</option>
+							<option class = "model" value="Land Rover Range Rover Velar">Land Rover Range Rover Velar</option>
+							<option class = "model" value="Lexus GX">Lexus GX</option>
+							<option class = "model" value="Lexus RX">Lexus RX</option>
+							<option class = "model" value="Lincoln Aviator">Lincoln Aviator</option>
+							<option class = "model" value="Lincoln MKT">Lincoln MKT</option>
+							<option class = "model" value="Lincoln MKX/Nautilus">Lincoln MKX/Nautilus</option>
+							<option class = "model" value="Mercedes-Benz GLE-Class">Mercedes-Benz GLE-Class</option>
+							<option class = "model" value="Porsche Cayenne">Porsche Cayenne</option>
+							<option class = "model" value="Tesla Model X">Tesla Model X</option>
+							<option class = "model" value="Volvo XC90">Volvo XC90</option>
+
+						  </select>
+						</div>
+
+				  </div>
+			   </div>
+			</div>
+		</nav>
+		<body>
+
+	<br><br><br>
+
+	<div class="container">
+    		<div id="chart"></div>
+  </div>
+
+	<script src="javascripts/create-graph.js"></script>
+	<!-- <script>
+	// alert();
+	// console.log($("select"));
+	function changeEvent(value) {
+			alert(value);
+	}
+
+
+	parseData(createGraph, [[], [], ['Nissan'], []]);
+
+	function parseData(createGraph, args) {
+		Papa.parse("../data/master.csv", {
+			download: true,
+			complete: function(results) {
+				console.log(filter(results.data, args));
+				createGraph(filter(results.data, args));
+			}
+		});
+	}
+
+	function filter(data, args) {
+	    var segments = args[0];
+	    var manufacturers = args[1];
+	    var brands = args[2];
+	    var models = args[3];
+	    var toReturn = [];
+
+	    // Segments
+	    for (var i = 0; i < segments.length; i++) {
+	        for (var j = 0; j < data.length; j++) {
+	            if (data[j][0] == segments[i]) {
+	                toReturn.push(data[j]);
+	            }
+	        }
+	    }
+
+	    // Manufacturers
+	    for (var i = 0; i < manufacturers.length; i++) {
+	        for (var j = 0; j < data.length; j++) {
+	            if (data[j][1] == manufacturers[i]) {
+	                toReturn.push(data[j]);
+	            }
+	        }
+	    }
+
+	    // Brands
+	    for (var i = 0; i < brands.length; i++) {
+	        for (var j = 0; j < data.length - 1; j++) {
+	            if (data[j][2].includes(brands[i])) {
+	                toReturn.push(data[j]);
+	            }
+	        }
+	    }
+
+	    // Models
+	    for (var i = 0; i < models.length; i++) {
+	        for (var j = 0; j < data.length; j++) {
+	            if (data[j][2] == models[i]) {
+	                toReturn.push(data[j]);
+	            }
+	        }
+	    }
+
+	    // Remove Duplicates
+		const unique = new Set(toReturn);
+	    return [...unique];
+	}
+
+	function createGraph(data) {
+		months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		lines = [];
+		for (var j = 0; j < data.length; j++) {
+			currModel = [];
+			for (var i = 2; i < 15; i++) {
+				currModel.push(data[j][i]);
+			}
+			lines.push(currModel);
+		}
+
+		var chart = c3.generate({
+			bindto: '#chart',
+		    data: {
+		        columns: lines
+		    },
+		    axis: {
+		        x: {
+		            type: 'category',
+		            categories: months,
+		            tick: {
+		            	multiline: false,
+	                	culling: {
+	                    	max: 15
+	                	}
+	            	}
+		        }
+		    },
+		    zoom: {
+	        	enabled: true
+	    	},
+		    legend: {
+		        position: 'bottom'
+		    }
+		});
+	}
+	</script> -->
+	  </body>
+
+
+	  <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	  <script src = "https://code.jquery.com/jquery-3.3.1.slim.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+	  <script>
+		  //Get the current year for the copyright
+		  $('#year').text(new Date().getFullYear())
+
+		  //Configure slider
+		  $('.carousel').carousel({
+			  interval: 7000,
+			  pause: 'hover'
+		  })
+	  </script>
+	  <script> src = "JsLocalSearch.js" </script>
+	  <script>
+
+				// Declare variables
+				var input, filter, ul, li, a, i, txtValue;
+				input = document.getElementById('myInput');
+				filter = input.value.toUpperCase();
+				ul = document.getElementById("myUL");
+				li = ul.getElementsByTagName('li');
+
+				// Loop through all list items, and hide those who don't match the search query
+				for (i = 0; i < li.length; i++) {
+				  a = li[i].getElementsByTagName("a")[0];
+				  txtValue = a.textContent || a.innerText;
+				  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					li[i].style.display = "";
+				  } else {
+					li[i].style.display = "none";
+
+				  }
+				}
+
+
+
+
+	  </script>
+	  <script src="chosen_v1.8.7/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+	  <script src="chosen_v1.8.7/chosen.jquery.js" type="text/javascript"></script>
+	  <script src="chosen_v1.8.7/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+	  <script src="chosen_v1.8.7/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
+	  </body>
